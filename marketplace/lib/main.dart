@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/detail_product.dart';
+import 'package:marketplace/chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -178,6 +179,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 1) {
+        // Jika tombol chart diklik, navigasi ke halaman ChartPage
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ChartPage()),
+        );
+      }
     });
   }
 }
