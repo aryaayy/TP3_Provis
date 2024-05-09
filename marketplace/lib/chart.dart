@@ -17,7 +17,9 @@ class _ChartPageState extends State<ChartPage> {
       appBar: AppBar(
         title: Text('Chart'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        automaticallyImplyLeading: false, // Tambahkan baris ini
       ),
+
       body: Consumer<ProductProvider>(
         builder: (context, value, _) {
           if (value.products.isEmpty) {
@@ -130,14 +132,21 @@ class _ChartPageState extends State<ChartPage> {
     );
   }
   void _onItemTapped(int index) {
-    // Tidak perlu menggunakan setState di sini karena ini bukan StatefulWidget
-    // Jika Anda ingin berpindah ke halaman MyHomePage ketika icon Chart diklik,
-    // cukup gunakan Navigator seperti ini:
+    setState(() {
+      _selectedIndex = index; // Ubah nilai _selectedIndex
+    });
+    
     if (index == 1) {
+      _selectedIndex = 1; // Atur nilai _selectedIndex sesuai dengan indeks item yang dipilih
+    }
+
+    // Tambahkan logika navigasi ke halaman MyHomePage ketika ikon 'Home' diklik
+    if (index == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage(title: 'Produk',)),
+        MaterialPageRoute(builder: (context) => MyHomePage(title: 'Produk')),
       );
     }
   }
+
 }
