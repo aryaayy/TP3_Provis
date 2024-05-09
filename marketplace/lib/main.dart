@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace/detail_product.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,24 +58,25 @@ class MyHomePage extends StatefulWidget {
 class Product {
   final String name;
   final String imagePath;
+  final double price;
 
-  Product({required this.name, required this.imagePath});
+  Product({required this.name, required this.imagePath, required this.price});
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   List<Product> products = [
-    Product(name: 'Product 1', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 2', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 3', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 4', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 5', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 6', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 7', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 8', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 9', imagePath: 'assets/image1.jpg'),
-    Product(name: 'Product 10', imagePath: 'assets/image1.jpg'),
+    Product(name: 'Product 1', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 2', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 3', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 4', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 5', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 6', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 7', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 8', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 9', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 10', imagePath: 'assets/image1.jpg', price: 30000),
     // Add more products here
   ];
 
@@ -93,46 +95,58 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: GridView.count(
         crossAxisCount: 2, // biar setiap row hanya nampilin 2 produk
-        childAspectRatio: productWidth / (productWidth + 80), // atur tinggi rownya
+        childAspectRatio: productWidth / (productWidth + 100), // atur tinggi rownya
         // loop data produk
         children: List.generate(products.length, (index) {
           final product = products[index];
-          return Container( // container produk
-            width: productWidth,
-            // height: 500,
-            // height: MediaQuery.of(context).size.width * 2.5,
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  product.imagePath, // Sesuaikan dengan path gambar Anda
-                  width: productWidth,
-                  // width: 100, // Sesuaikan dengan lebar gambar yang diinginkan
-                  // height: 100, // Sesuaikan dengan tinggi gambar yang diinginkan
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailPage(product: product),
                 ),
-                SizedBox(height: 8.0),
-                Text(
-                  product.name,
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                SizedBox(height: 8.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle button press
-                  },
-                  child: Text('Add to Cart'),
-                ),
-              ],
+              );
+            },
+            child: Container(
+              width: productWidth,
+              padding: EdgeInsets.all(8.0),
+              margin: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    product.imagePath,
+                    width: productWidth,
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    product.name,
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  SizedBox(height: 5.0),
+                  Text(
+                    '\$${product.price.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                  SizedBox(height: 8.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle button press
+                    },
+                    child: Text('Add to Cart'),
+                  ),
+                ],
+              ),
             ),
           );
         }),
+
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
