@@ -112,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        automaticallyImplyLeading: false,
       ),
       body: Consumer<ProductProvider>(
         builder: (context, value, _) {
@@ -235,13 +236,22 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 1) {
-        // Jika tombol chart diklik, navigasi ke halaman ChartPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ChartPage()),
-        );
-      }
+      // if (_selectedIndex == 1) {
+      //   // Jika tombol chart diklik, navigasi ke halaman ChartPage
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => ChartPage()),
+      //   );
+      // }
     });
+    if (index == 0) {
+      _selectedIndex = 0; // Atur nilai _selectedIndex sesuai dengan indeks item yang dipilih
+    }
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ChartPage()),
+      );
+    }
   }
 }
