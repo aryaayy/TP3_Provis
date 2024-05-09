@@ -149,55 +149,48 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    child: 
-                    Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  crossAxisAlignment: CrossAxisAlignment.center,
-  children: [
-    Flexible( // Menggunakan Flexible untuk gambar
-      flex: 3, // Memberikan 60% bagian untuk gambar
-      child: Container(
-        decoration: BoxDecoration(color: Color.fromARGB(255, 39, 36, 36)),
-        child: Image.network(
-          product.image,
-          fit: BoxFit.fitHeight,
-        ),
-      ),
-    ),
-    SizedBox(height: 8.0),
-    Flexible( // Menggunakan Flexible untuk teks
-      flex: 2, // Memberikan 40% bagian untuk teks
-      child: Container(
-        decoration: BoxDecoration(color: Color.fromARGB(255, 133, 53, 149)),
-        padding: EdgeInsets.symmetric(horizontal: 8.0), // Menambahkan padding horizontal
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 5.0),
-            Text(
-              '\$${product.price}',
-              style: TextStyle(fontSize: 15.0),
-            ),
-            SizedBox(height: 8.0),
-            ElevatedButton(
-              onPressed: () {
-                // Handle button press
-              },
-              child: Text('Add to Cart'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  ],
-),
-
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                           width: productWidth * 0.7, // Mengambil 70% dari lebar kolom
+                          height: productWidth * 0.7,
+                          // width: productWidth/2,
+                          // height: productWidth,
+                          
+                          child: Image.network(
+                            product.image,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                product.title,
+                                maxLines: 1, // Atur jumlah maksimum baris menjadi 2
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(height: 5.0),
+                              Text(
+                                '\$${product.price}',
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+                              SizedBox(height: 8.0),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Handle button press
+                                },
+                                child: Text('Add to Cart'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }).toList(),
