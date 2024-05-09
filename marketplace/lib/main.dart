@@ -59,24 +59,26 @@ class Product {
   final String name;
   final String imagePath;
   final double price;
+  final String desc;
+  final String category;
 
-  Product({required this.name, required this.imagePath, required this.price});
+  Product({required this.name, required this.imagePath, required this.price, required this.desc, required this.category});
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   List<Product> products = [
-    Product(name: 'Product 1', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 2', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 3', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 4', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 5', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 6', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 7', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 8', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 9', imagePath: 'assets/image1.jpg', price: 30000),
-    Product(name: 'Product 10', imagePath: 'assets/image1.jpg', price: 30000),
+    Product(name: 'Product 1', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 2', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 3', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 4', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 5', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 6', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 7', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 8', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 9', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+    Product(name: 'Product 10', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
     // Add more products here
   ];
 
@@ -127,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 8.0),
                   Text(
                     product.name,
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 5.0),
                   Text(
