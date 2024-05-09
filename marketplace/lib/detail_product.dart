@@ -82,6 +82,17 @@ class ProductDetailPage extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 10.0,),
+          ElevatedButton(
+            onPressed: () {
+              // Handle button press
+            },
+            child: 
+            Text(
+              'Add to Cart',
+              style: TextStyle(fontSize: 24.0),
+              ),
+          ),
           // Add more details here
         ],
       ),
