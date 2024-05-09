@@ -112,40 +112,8 @@ class _ChartPageState extends State<ChartPage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Chart',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple,
-        onTap: _onItemTapped,
-      ),                      
+      ),                    
     );
-  }
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Ubah nilai _selectedIndex
-    });
-    
-    if (index == 1) {
-      _selectedIndex = 1; // Atur nilai _selectedIndex sesuai dengan indeks item yang dipilih
-    }
-
-    // Tambahkan logika navigasi ke halaman MyHomePage ketika ikon 'Home' diklik
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MyHomePage(title: 'Produk')),
-      );
-    }
   }
 
 }
