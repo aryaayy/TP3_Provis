@@ -115,8 +115,16 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(8.0),
               margin: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.white, // Atur warna latar belakang sesuai kebutuhan
+                borderRadius: BorderRadius.circular(10), // Atur border radius sesuai kebutuhan
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
