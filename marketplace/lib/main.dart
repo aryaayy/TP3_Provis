@@ -182,7 +182,24 @@ class _MyHomePageState extends State<MyHomePage> {
                               SizedBox(height: 8.0),
                               ElevatedButton(
                                 onPressed: () {
-                                  // Handle button press
+                                  bool productExists = value.isProductExists(product.id);
+                                  if (!productExists) {
+                                    value.add(product);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Added to Chart successfully'),
+                                        duration: Duration(seconds: 1),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Product already exists in the chart'),
+                                        duration: Duration(seconds: 1),
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: Text('Add to Cart'),
                               ),

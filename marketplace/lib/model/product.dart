@@ -1,5 +1,5 @@
 class Product {
-  // final int id;
+  final String id;
   final String title;
   final String price;
   final String description;
@@ -9,7 +9,7 @@ class Product {
   // final String ratingCount;
 
   Product({
-    // required this.id,
+    required this.id,
     required this.title,
     required this.price,
     required this.description,
@@ -20,7 +20,7 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    // final id = json['id'];
+    final id = json['id'].toString();
     final title = json['title'];
     final price = json['price'].toStringAsFixed(2);
     final description = json['description'];
@@ -29,7 +29,7 @@ class Product {
     // final ratingRate = json['rating']['rate'];
     // final ratingCount = json['rating']['count'];
     return Product(
-      // id: id,
+      id: id,
       title: title,
       price: price,
       description: description,

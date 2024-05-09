@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/main.dart';
 import 'package:marketplace/model/product.dart';
+import 'package:marketplace/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -9,6 +11,8 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var value = context.watch<ProductProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Detail'),
@@ -89,7 +93,24 @@ class ProductDetailPage extends StatelessWidget {
             SizedBox(height: 10.0,),
             ElevatedButton(
               onPressed: () {
-                // Handle button press
+                bool productExists = value.isProductExists(product.id);
+                  if (!productExists) {
+                    value.add(product);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Added to Chart successfully'),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Product already exists in the chart'),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  }
               },
               child: Text(
                 'Add to Cart',

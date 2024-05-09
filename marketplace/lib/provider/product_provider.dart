@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 class ProductProvider extends ChangeNotifier {
   String url = "https://fakestoreapi.com/products";
   List<Product> _products = [];
-
   List<Product> get products => _products;
+
+  List<Product> _chart = [];
+  List<Product> get chart => _chart;
 
   Future<void> fetchData() async {
     try {
@@ -24,5 +26,21 @@ class ProductProvider extends ChangeNotifier {
     } catch (e) {
       print('Error: $e');
     }
+  }
+
+  void add(Product product) {
+    _chart.add(product);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  void remove(Product product) {
+    _chart.remove(product);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  bool isProductExists(String productId) {
+    return _chart.any((product) => product.id == productId);
   }
 }
