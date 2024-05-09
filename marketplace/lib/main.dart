@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/detail_product.dart';
 import 'package:marketplace/chart.dart';
+import 'package:marketplace/model/product.dart';
+import 'package:marketplace/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<ProductProvider>(
+      create: (context) => ProductProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,6 +20,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final value = Provider.of<ProductProvider>(context);
+    // print('JSON: $value');
+
+    print(value.products);
+    if (value.products.isEmpty) {
+      value.fetchData();
+    }
+    
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -56,35 +72,36 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class Product {
-  final String name;
-  final String imagePath;
-  final double price;
-  final String desc;
-  final String category;
+// class Product {
+//   final String name;
+//   final String imagePath;
+//   final double price;
+//   final String desc;
+//   final String category;
 
-  Product({required this.name, required this.imagePath, required this.price, required this.desc, required this.category});
-}
+//   Product({required this.name, required this.imagePath, required this.price, required this.desc, required this.category});
+// }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  List<Product> products = [
-    Product(name: 'Product 1', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 2', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 3', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 4', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 5', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 6', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 7', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 8', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 9', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    Product(name: 'Product 10', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
-    // Add more products here
-  ];
+  // List<Product> products = [
+  //   Product(name: 'Product 1', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 2', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 3', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 4', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 5', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 6', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 7', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 8', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 9', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   Product(name: 'Product 10', imagePath: 'assets/image1.jpg', price: 30, desc: 'loyem ipcum', category: 'fashion'),
+  //   // Add more products here
+  // ];
 
   @override
   Widget build(BuildContext context) {
+  
     // Mendapatkan informasi tentang ukuran layar perangkat
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -96,68 +113,75 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: GridView.count(
-        crossAxisCount: 2, // biar setiap row hanya nampilin 2 produk
-        childAspectRatio: productWidth / (productWidth + 100), // atur tinggi rownya
-        // loop data produk
-        children: List.generate(products.length, (index) {
-          final product = products[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailPage(product: product),
-                ),
-              );
-            },
-            child: Container(
-              width: productWidth,
-              padding: EdgeInsets.all(8.0),
-              margin: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.white, // Atur warna latar belakang sesuai kebutuhan
-                borderRadius: BorderRadius.circular(10), // Atur border radius sesuai kebutuhan
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 4,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    product.imagePath,
+      body: Consumer<ProductProvider>(
+        builder: (context, value, _) {
+          if(value.products.isEmpty){
+            return Center(child: CircularProgressIndicator());
+          }
+          else{
+            return GridView.count(
+              crossAxisCount: 2, // biar setiap row hanya nampilin 2 produk
+              childAspectRatio: productWidth / (productWidth + 100), // atur tinggi rownya
+              // loop data produk
+              children: value.products.map((product) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailPage(product: product),
+                      ),
+                    );
+                  },
+                  child: Container(
                     width: productWidth,
+                    padding: EdgeInsets.all(8.0),
+                    margin: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Atur warna latar belakang sesuai kebutuhan
+                      borderRadius: BorderRadius.circular(10), // Atur border radius sesuai kebutuhan
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          product.image,
+                          width: productWidth/2,
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          product.title,
+                          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          '\$${product.price}',
+                          style: TextStyle(fontSize: 15.0),
+                        ),
+                        SizedBox(height: 8.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Handle button press
+                          },
+                          child: Text('Add to Cart'),
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    product.name,
-                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    '\$${product.price.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 15.0),
-                  ),
-                  SizedBox(height: 8.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle button press
-                    },
-                    child: Text('Add to Cart'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }),
-
+                );
+              }).toList(),
+            );
+          }
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

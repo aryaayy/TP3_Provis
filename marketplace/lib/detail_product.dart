@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/main.dart';
+import 'package:marketplace/model/product.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -16,7 +17,7 @@ class ProductDetailPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset(product.imagePath),
+          Image.network(product.image),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,12 +58,12 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SizedBox(height: 15.0),
                         Text(
-                          product.name,
+                          product.title,
                           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          '\$${product.price.toStringAsFixed(2)}',
+                          '\$${product.price}',
                           style: TextStyle(fontSize: 22.0),
                         ),
                         SizedBox(height: 15.0),
@@ -72,7 +73,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          product.desc,
+                          product.description,
                           style: TextStyle(fontSize: 20.0),
                         ),
                       ],
