@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:marketplace/model/product.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/product.dart';
+
 class ProductProvider extends ChangeNotifier {
   String url = "https://fakestoreapi.com/products";
   List<Product> _products = [];
@@ -17,8 +19,8 @@ class ProductProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         // print(response.body);
         final List<dynamic> productList = jsonDecode(response.body);
-        // print(productList);
         _products = productList.map((json) => Product.fromJson(json)).toList();
+        print(_products);
         notifyListeners();
       } else {
         throw Exception('Failed to load data');
